@@ -9,10 +9,10 @@ class Programa extends Model
 {
     use HasFactory;
 
-    // ✅ Nombre real de la tabla en MySQL
+    
     protected $table = 'programas';
 
-    // ✅ Campos que SÍ se pueden guardar (asignación masiva)
+    
     protected $fillable = [
         'nombrePrograma',
         'tipoPrograma',
@@ -20,4 +20,9 @@ class Programa extends Model
         'estadoPrograma',
         'responsablePrograma'
     ];
+    public function proyectos()
+{
+    return $this->hasMany(Proyecto::class, 'programa_id');
+}
+
 }

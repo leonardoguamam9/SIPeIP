@@ -58,7 +58,8 @@
     <a href="{{ url('/') }}">Inicio</a>
     <a href="{{ route('entidades.index') }}">Entidades</a>
     <a href="{{ route('programa.index') }}">Programas</a>
-     <a href="{{ route('ods.index') }}">ODS</a>
+    <a href="{{ route('ods.index') }}">ODS</a>
+    <a href="{{ route('proyecto.index') }}">Proyectos</a>
 </nav>
 
 <main class="container my-5">

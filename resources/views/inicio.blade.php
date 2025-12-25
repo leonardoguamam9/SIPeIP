@@ -26,14 +26,23 @@
                 <a href="{{ route('programa.index') }}" class="text-decoration-none fw-bold">
                     Gestión de Programas
             </li>
-        </ul>   
+        </ul>  
+
         </ul>
           <ul class="list-group">
             <li class="list-group-item text-center">
                 <a href="{{ route('ods.index') }}" class="text-decoration-none fw-bold">
                     Gestión de ODS
             </li>
-        </ul>           
+        </ul>    
+
+         </ul>
+          <ul class="list-group">
+            <li class="list-group-item text-center">
+                <a href="{{ route('proyecto.index') }}" class="text-decoration-none fw-bold">
+                    Gestión de Proyectos
+            </li>
+        </ul>    
     </div>
 </div>
 
