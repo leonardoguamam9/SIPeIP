@@ -59,6 +59,14 @@
                     Gestión de Plan de Desarrollo Nacional 
             </li>
         </ul> 
+
+        </ul>
+          <ul class="list-group">
+            <li class="list-group-item text-center">
+                <a href="{{ route('oe.index') }}" class="text-decoration-none fw-bold">
+                    Gestión de Objetivos Estratégicos
+            </li>
+        </ul> 
     </div>
 </div>
 

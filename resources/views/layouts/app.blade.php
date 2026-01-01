@@ -62,6 +62,7 @@
     <a href="{{ route('proyecto.index') }}">Proyectos</a>
     <a href="{{ route('planes.index') }}">Planes Institucionales</a>
     <a href="{{ route('pdn.index') }}">Planes Nacionales de Desarrollo</a>
+    <a href="{{ route('oe.index') }}">Objetivos Estratégicos</a>
 </nav>
 
 <main class="container my-5">
