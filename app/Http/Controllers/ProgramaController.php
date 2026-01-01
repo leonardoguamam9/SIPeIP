@@ -41,7 +41,7 @@ class ProgramaController extends Controller
         ]);
          Programa::create($request->all());
 
-        return redirect()->route('programa.index')->with('success',"Programa creada satisfactoriamente");
+         return redirect()->route('programa.index')->with('success',"Programa creada satisfactoriamente");
        
     }
 
@@ -78,8 +78,8 @@ class ProgramaController extends Controller
             'responsablePrograma'=>'required|string',
         ]);
          $programa = Programa::findOrFail($id);
-        $programa->update($request->all());
-        return redirect()->route('programa.index')->with('success',"Programa actualizada satisfactoriamente");
+         $programa->update($request->all());
+         return redirect()->route('programa.index')->with('success',"Programa actualizada satisfactoriamente");
         
     }
 

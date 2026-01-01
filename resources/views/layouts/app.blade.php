@@ -51,7 +51,7 @@
 <body>
 
 <header>
-    <h1>Sistema de la Gestión de la Planificación --SIPeIP</h1>
+    <h1>Bienvenido al Sistema de Gestión de la Planificación  - SIPeIP</h1>
 </header>
 
 <nav>
@@ -60,6 +60,7 @@
     <a href="{{ route('programa.index') }}">Programas</a>
     <a href="{{ route('ods.index') }}">ODS</a>
     <a href="{{ route('proyecto.index') }}">Proyectos</a>
+    <a href="{{ route('planes.index') }}">Planes Institucionales</a>
 </nav>
 
 <main class="container my-5">
