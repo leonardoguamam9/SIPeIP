@@ -6,6 +6,7 @@ use App\Http\Controllers\ODSController;
 use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\PDNController;
 
 Route::resource('entidades', EntidadController::class);
 
@@ -24,5 +25,6 @@ route::resource('ods',ODSController::class);
 route::resource('programa',ProgramaController::class);
 route::resource('proyecto',ProyectoController::class);
 route::resource('planes',PlanController::class);
+route::resource('pdn',PDNController::class);
 
 

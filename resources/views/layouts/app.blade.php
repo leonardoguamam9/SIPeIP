@@ -61,6 +61,7 @@
     <a href="{{ route('ods.index') }}">ODS</a>
     <a href="{{ route('proyecto.index') }}">Proyectos</a>
     <a href="{{ route('planes.index') }}">Planes Institucionales</a>
+    <a href="{{ route('pdn.index') }}">Planes Nacionales de Desarrollo</a>
 </nav>
 
 <main class="container my-5">

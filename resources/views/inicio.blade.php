@@ -51,6 +51,14 @@
                     Gestión de Planes Institucionales 
             </li>
         </ul>  
+
+         </ul>
+          <ul class="list-group">
+            <li class="list-group-item text-center">
+                <a href="{{ route('pdn.index') }}" class="text-decoration-none fw-bold">
+                    Gestión de Plan de Desarrollo Nacional 
+            </li>
+        </ul> 
     </div>
 </div>
 
