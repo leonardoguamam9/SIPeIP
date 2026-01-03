@@ -64,6 +64,7 @@
     <a href="{{ route('pdn.index') }}">Planes Nacionales de Desarrollo</a>
     <a href="{{ route('oe.index') }}">Objetivos Estratégicos</a>
     <a href="{{ route('metas.index') }}">Metas</a>
+    <a href="{{ route('indicadores.index') }}">Indicadores</a>
 </nav>
 
 <main class="container my-5">

@@ -74,8 +74,8 @@ class ODSController extends Controller
             'descripcionODS'=>'required|string',
         ]);
          $ods = ODS::findOrFail($id);
-        $ods->update($request->all());
-        return redirect()->route('ods.index')->with('success',"ods actualizada satisfactoriamente");
+         $ods->update($request->all());
+         return redirect()->route('ods.index')->with('success',"ods actualizada satisfactoriamente");
         
 
     }

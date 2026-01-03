@@ -9,6 +9,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PDNController;
 use App\Http\Controllers\OEController;
 use App\Http\Controllers\MetasController;
+use App\Http\Controllers\IndicadoresController;
 
 Route::resource('entidades', EntidadController::class);
 
@@ -30,5 +31,6 @@ route::resource('planes',PlanController::class);
 route::resource('pdn',PDNController::class);
 route::resource('oe',OEController::class);
 route::resource('metas',MetasController::class);
+route::resource('indicadores',indicadoresController::class);
 
 
