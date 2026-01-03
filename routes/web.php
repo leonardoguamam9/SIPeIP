@@ -8,6 +8,7 @@ use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PDNController;
 use App\Http\Controllers\OEController;
+use App\Http\Controllers\MetasController;
 
 Route::resource('entidades', EntidadController::class);
 
@@ -28,5 +29,6 @@ route::resource('proyecto',ProyectoController::class);
 route::resource('planes',PlanController::class);
 route::resource('pdn',PDNController::class);
 route::resource('oe',OEController::class);
+route::resource('metas',MetasController::class);
 
 
