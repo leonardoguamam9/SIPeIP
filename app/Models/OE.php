@@ -30,5 +30,9 @@ class OE extends Model
     {
         return $this->belongsTo(PDN::class);
     }
+    public function metas()
+    {
+        return $this->hasMany(Metas::class, 'oe_id');
+    }
 
 }

@@ -65,6 +65,8 @@
     <a href="{{ route('oe.index') }}">Objetivos Estratégicos</a>
     <a href="{{ route('metas.index') }}">Metas</a>
     <a href="{{ route('indicadores.index') }}">Indicadores</a>
+    <a href="{{ route('alineacion.index') }}">Alineación Estratégica</a>
+
 </nav>
 
 <main class="container my-5">

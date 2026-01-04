@@ -10,6 +10,7 @@ use App\Http\Controllers\PDNController;
 use App\Http\Controllers\OEController;
 use App\Http\Controllers\MetasController;
 use App\Http\Controllers\IndicadoresController;
+use App\Http\Controllers\AlineacionController;
 
 Route::resource('entidades', EntidadController::class);
 
@@ -32,5 +33,5 @@ route::resource('pdn',PDNController::class);
 route::resource('oe',OEController::class);
 route::resource('metas',MetasController::class);
 route::resource('indicadores',indicadoresController::class);
-
+Route::get('/alineacion', [AlineacionController::class, 'index'])->name('alineacion.index');
 

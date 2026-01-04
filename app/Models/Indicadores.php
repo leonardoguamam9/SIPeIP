@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Metas;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -25,6 +25,7 @@ class Indicadores extends Model
     {
         return $this->belongsTo(Metas::class, 'meta_id');
     }
+    
 }
 
   
