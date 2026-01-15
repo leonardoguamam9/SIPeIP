@@ -16,4 +16,5 @@ class Entidad extends Model
         'subSector',
         'responsable'
     ];
+    
 }

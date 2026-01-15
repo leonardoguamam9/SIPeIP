@@ -7,7 +7,7 @@
 <div class="container mt-4">
 
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="mb-0">Planes Nacionales de Desarrollo (PDN)</h3>
+        <h3 class="mb-0">Listado de Planes Nacionales de Desarrollo (PDN)</h3>
 
         <a href="{{ route('pdn.create') }}" class="btn btn-primary">
             Nuevo PDN
@@ -30,6 +30,18 @@
                         <th>ID</th>
                         <th>Código</th>
                         <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Año inicio</th>
+                        <th>Año fin</th>
+                        <th>Horizonte</th>
+                        <th>Fecha aprobación</th>
+                        <th>Resolución</th>
+                        <th>Entidad</th>
+                        <th>Usuario</th>
+                        <th>Responsable PDN</th>
+                        <th>Documento</th>
+                        <th>Repositorio</th>
+                        <th>Observaciones</th>
                         <th>Estado</th>
                         <th class="text-center">Acciones</th>
                     </tr>
@@ -41,9 +53,30 @@
                         <td>{{ $pdn->id }}</td>
                         <td>{{ $pdn->codigoPDN }}</td>
                         <td>{{ $pdn->nombrePDN }}</td>
-                        <td>{{ $pdn->estadoPDN }}</td>
-                        <td class="text-center">
+                        <td>{{ $pdn->descripcionPDN }}</td>
+                        <td>{{ $pdn->anio_inicio }}</td>
+                        <td>{{ $pdn->anio_fin }}</td>
+                        <td>{{ $pdn->horizonte_planificacion }}</td>
+                        <td>{{ $pdn->fecha_aprobacion ?? '-' }}</td>
+                        <td>{{ $pdn->resolucion_aprobacion ?? '-' }}</td>
+                        <td>{{ $pdn->entidad->nombreEntidad ?? 'Sin entidad' }}</td>
+                        <td>{{ $pdn->user->name ?? 'Sin usuario' }}</td>
+                        <td>{{ $pdn->responsable_pdn ?? '-' }}</td>
+                        <td>{{ $pdn->documentoPDN ?? '-' }}</td>
+                        <td>{{ $pdn->url_repositorio ?? '-' }}</td>
+                        <td>{{ $pdn->observaciones ?? '-' }}</td>
 
+                        <td>
+                            @if($pdn->estadoPDN == 'Activo')
+                                <span class="badge bg-success">Activo</span>
+                            @elseif($pdn->estadoPDN == 'Inactivo')
+                                <span class="badge bg-danger">Inactivo</span>
+                            @else
+                                <span class="badge bg-secondary">Borrador</span>
+                            @endif
+                        </td>
+
+                        <td class="text-center">
                             <a href="{{ route('pdn.edit', $pdn->id) }}"
                                class="btn btn-warning btn-sm">
                                 Editar
@@ -60,13 +93,12 @@
                                     Eliminar
                                 </button>
                             </form>
-
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="text-center">
-                            No existen PND registrados
+                        <td colspan="17" class="text-center">
+                            No existen PDN registrados
                         </td>
                     </tr>
                 @endforelse
@@ -80,5 +112,3 @@
 </div>
 
 @endsection
-
-
