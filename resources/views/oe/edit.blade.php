@@ -10,8 +10,13 @@
         <h4 class="text-center mb-4">Editar Objetivo Estratégico (OE)</h4>
 
         <form action="{{ route('oe.update', $oe->id) }}" method="POST">
-            @csrf
-            @method('PUT')
+    @csrf
+    @method('PUT')
+
+    @if(request('redirect'))
+        <input type="hidden" name="redirect" value="{{ request('redirect') }}">
+    @endif
+
 
             <div class="mb-3">
                 <label class="form-label">Código OE</label>

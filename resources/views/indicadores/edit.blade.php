@@ -9,9 +9,11 @@
 
         <h4 class="text-center mb-4">Editar Indicador</h4>
 
-        <form action="{{ route('indicadores.update', $indicador->id) }}" method="POST">
-            @csrf
-            @method('PUT')
+        <form method="POST" action="{{ route('indicadores.update', $indicador->id) }}">
+    @csrf
+    @method('PUT')
+
+    <input type="hidden" name="redirect" value="{{ request('redirect') }}">
 
             <div class="mb-3">
                 <label class="form-label">Código del Indicador</label>

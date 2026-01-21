@@ -50,6 +50,13 @@ class ODSController extends Controller
     public function show(string $id)
     {
         //
+        $ods = ODS::find($id);
+
+    if (!$ods) {
+        return response()->json(['error' => 'ODS no encontrado'], 404);
+    }
+
+    return response()->json($ods);
     }
 
     /**
@@ -91,4 +98,22 @@ class ODSController extends Controller
          return redirect()->route('ods.index')->with('success',"ODS eliminada satisfactoriamente");
         
     }
+
+     public function all()
+    {
+        try {
+            $ods = ODS::select('id','nombreODS','tipoODS','descripcionODS')->get();
+            return response()->json($ods);
+        } catch (\Exception $e) {
+            // Devuelve el error para debugging
+            return response()->json([
+                'error' => 'No se pudieron cargar los ODS',
+                'detalle' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+ 
+    
+
 }

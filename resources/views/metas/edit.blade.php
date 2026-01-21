@@ -12,6 +12,10 @@
         <form action="{{ route('metas.update', $meta->id) }}" method="POST">
             @csrf
             @method('PUT')
+            @if(request()->filled('redirect'))
+         <input type="hidden" name="redirect" value="{{ request('redirect') }}">
+            @endif
+
 
             <div class="mb-3">
                 <label class="form-label">Código de Meta</label>

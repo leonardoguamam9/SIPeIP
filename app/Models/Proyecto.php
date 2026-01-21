@@ -23,4 +23,8 @@ class Proyecto extends Model
     {
         return $this->belongsTo(Programa::class);
     }
+
+    public function indicadores() {
+    return $this->hasMany(Indicador::class, 'proyecto_id');
+}
 }

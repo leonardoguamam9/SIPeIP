@@ -51,6 +51,26 @@ class ProgramaController extends Controller
     public function show(string $id)
     {
         //
+         $programa = Programa::with('proyectos')->find($id);
+
+        if(!$programa){
+            return response()->json(['error'=>'Programa no encontrado'], 404);
+        }
+
+        return response()->json([
+            'id' => $programa->id,
+            'nombrePrograma' => $programa->nombrePrograma,
+            'tipoPrograma' => $programa->tipoPrograma,
+            'descripcionPrograma' => $programa->descripcionPrograma,
+            'estadoPrograma' => $programa->estadoPrograma,
+            'responsablePrograma' => $programa->responsablePrograma,
+            'proyectos' => $programa->proyectos->map(function($proy){
+                return [
+                    'nombreProyecto' => $proy->nombreProyecto,
+                    'estadoProyecto' => $proy->estadoProyecto
+                ];
+            })
+        ]);
     }
 
     /**
@@ -94,4 +114,11 @@ class ProgramaController extends Controller
          return redirect()->route('programa.index')->with('success',"Programa eliminada satisfactoriamente");
         
     }
+     public function all()
+    {
+        return response()->json(
+            Programa::select('id','nombrePrograma')->get()
+        );
+    }
+
 }

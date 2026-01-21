@@ -26,13 +26,18 @@ class OE extends Model
         return $this->belongsTo(Entidad::class);
     }
 
-     public function pdn()
+         public function pdn()
     {
-        return $this->belongsTo(PDN::class);
+        return $this->belongsTo(PDN::class, 'pdn_id');
     }
+
     public function metas()
     {
         return $this->hasMany(Metas::class, 'oe_id');
     }
+
+    public function programas() {
+    return $this->hasMany(Programa::class, 'oe_id');
+}
 
 }

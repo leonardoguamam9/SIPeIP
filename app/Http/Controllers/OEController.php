@@ -88,8 +88,14 @@ class OEController extends Controller
         $oes = OE::findOrFail($id);
         $oes->update($request->all());
 
-        return redirect()->route('oe.index')->with('success', 'Objetivo Estratégico actualizado correctamente');
+        if ($request->filled('redirect')) {
+        return redirect($request->redirect)
+            ->with('success', 'OE actualizado correctamente');
+    }
 
+
+    return redirect()->route('oe.index')
+        ->with('success', 'OE actualizado correctamente');
     }
 
     /**
@@ -103,4 +109,27 @@ class OEController extends Controller
 
         return redirect()->route('oe.index')->with('success', 'Objetivo Estratégico eliminado correctamente');
     }
+
+
+     public function forPDN($pdn_id)
+    {
+        return response()->json(
+            OE::where('pdn_id', $pdn_id)
+              ->select('id', 'codigoOE', 'nombreOE')
+              ->get()
+        );
+    }
+     public function list()
+    {
+        return response()->json(
+            OE::select('id', 'codigoOE', 'nombreOE', 'pdn_id')->get()
+        );
+    }
+     public function all()
+    {
+        return response()->json(
+            OE::select('id','codigoOE','nombreOE')->get()
+        );
+    }
+
 }

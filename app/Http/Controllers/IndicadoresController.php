@@ -54,6 +54,25 @@ class IndicadoresController extends Controller
     public function show(string $id)
     {
         //
+        $indicador = Indicadores::with('meta')->find($id);
+
+        if(!$indicador){
+            return response()->json(['error'=>'Indicador no encontrado'], 404);
+        }
+
+        return response()->json([
+            'id' => $indicador->id,
+            'codigoIndicador' => $indicador->codigoIndicador,
+            'nombreIndicador' => $indicador->nombreIndicador,
+            'descripcionIndicador' => $indicador->descripcionIndicador,
+            'tipoIndicador' => $indicador->tipoIndicador,
+            'formulaIndicador' => $indicador->formulaIndicador,
+            'estadoIndicador' => $indicador->estadoIndicador,
+            'meta' => $indicador->meta ? [
+                'codigoMeta' => $indicador->meta->codigoMeta,
+                'nombreMeta' => $indicador->meta->nombreMeta
+            ] : null
+        ]);
     }
 
     /**
@@ -84,7 +103,12 @@ class IndicadoresController extends Controller
         ]);
           $indicador = Indicadores::findOrFail($id);
           $indicador->update($request->all());
-          return redirect()->route('indicadores.index')->with('success', 'Indicador actualizado correctamente');
+         if ($request->filled('redirect')) {
+        return redirect($request->redirect)
+            ->with('success', 'Indicador actualizado correctamente');
+    }
+    return redirect()->route('indicadores.index')
+        ->with('success', 'Indicador actualizado correctamente');
 
     }
 
@@ -97,5 +121,12 @@ class IndicadoresController extends Controller
          $indicador = Indicadores::findOrFail($id);
          $indicador->delete();
          return redirect()->route('indicadores.index')->with('success', 'Indicador eliminado correctamente');
+    }
+
+    public function all()
+    {
+        return response()->json(
+            Indicadores::select('id','nombreIndicador')->get()
+        );
     }
 }

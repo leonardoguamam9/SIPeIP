@@ -50,6 +50,26 @@ class PlanController extends Controller
     public function show(string $id)
     {
         //
+        $plan = Plan::with('entidad')->find($id);
+
+        if (!$plan) {
+            return response()->json(['error' => 'Plan no encontrado'], 404);
+        }
+
+        return response()->json([
+            'id' => $plan->id,
+            'nombrePlan' => $plan->nombrePlan,
+            'descripcionPlan' => $plan->descripcionPlan,
+            'estadoPlan' => $plan->estadoPlan,
+            'fechaInicio' => $plan->fechaInicio,
+            'fechaFin' => $plan->fechaFin,
+            'entidad' => $plan->entidad ? [
+                'nombreEntidad' => $plan->entidad->nombreEntidad,
+                'tipoEntidad' => $plan->entidad->tipoEntidad,
+                'direccionEntidad' => $plan->entidad->direccionEntidad,
+            ] : null
+        ]);
+    
     }
 
     /**
@@ -92,4 +112,15 @@ class PlanController extends Controller
         $planes->delete();
         return redirect()->route('planes.index')->with('success',"Plan eliminada satisfactoriamente");  
     }
+
+     public function all()
+    {
+        return response()->json(
+            Plan::select('id','nombrePlan')->get()
+        );
+    }
+
+
+
+
 }

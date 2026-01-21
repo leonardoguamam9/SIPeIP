@@ -56,6 +56,9 @@ class EntidadController extends Controller
     public function show(string $id)
     {
         //
+        return response()->json(
+        Entidad::findOrFail($id)
+    );
     }
 
     /**
@@ -99,4 +102,22 @@ class EntidadController extends Controller
         
 
     }
+
+    public function list()
+{
+    return response()->json(
+        Entidad::select(
+            'id',
+            'nombreEntidad',
+            'tipoEntidad',
+            'direccionEntidad',
+            'subSector',
+            'responsable'
+        )->get()
+    );
+}
+
+
+
+   
 }

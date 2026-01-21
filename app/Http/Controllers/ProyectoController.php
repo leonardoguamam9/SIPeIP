@@ -68,4 +68,38 @@ class ProyectoController extends Controller
 
         
     }
+
+     public function all()
+    {
+        return response()->json(
+            Proyecto::select('id','nombreProyecto')->get()
+        );
+    }
+
+     public function show($id)
+    {
+        $proyecto = Proyecto::with(['programa','indicadores'])->find($id);
+
+        if(!$proyecto){
+            return response()->json(['error'=>'Proyecto no encontrado'], 404);
+        }
+
+        return response()->json([
+            'id' => $proyecto->id,
+            'nombreProyecto' => $proyecto->nombreProyecto,
+            'descripcionProyecto' => $proyecto->descripcionProyecto,
+            'estadoProyecto' => $proyecto->estadoProyecto,
+            'responsableProyecto' => $proyecto->responsableProyecto,
+            'programa' => $proyecto->programa ? [
+                'nombrePrograma' => $proyecto->programa->nombrePrograma,
+                'tipoPrograma' => $proyecto->programa->tipoPrograma
+            ] : null,
+            'indicadores' => $proyecto->indicadores->map(function($ind){
+                return [
+                    'codigoIndicador' => $ind->codigoIndicador ?? '',
+                    'nombreIndicador' => $ind->nombreIndicador ?? ''
+                ];
+            })
+        ]);
+    }
 }

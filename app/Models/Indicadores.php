@@ -26,6 +26,9 @@ class Indicadores extends Model
         return $this->belongsTo(Metas::class, 'meta_id');
     }
     
+    public function metas() {
+    return $this->hasMany(Meta::class, 'indicador_id');
+}
 }
 
   

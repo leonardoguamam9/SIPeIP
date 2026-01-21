@@ -38,4 +38,10 @@ class PDN extends Model
     {
         return $this->belongsTo(User::class, 'users_id');
     }
+
+    public function oes()
+    {
+        return $this->hasMany(OE::class, 'pdn_id');
+    }
+
 }

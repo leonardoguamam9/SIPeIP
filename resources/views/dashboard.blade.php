@@ -165,6 +165,28 @@
             </div>
         </div>
 
+          {{-- PDN --}}
+        <div class="col-md-4">
+            <div class="card shadow h-100 text-center">
+                <div class="card-body">
+                    <h5 class="card-title"> Panel Maestro del Plan Nacional de Desarrollo</h5>
+                    <p class="card-text text-muted">Creación de Plan Nacional de Desarrollo</p>
+                    <a href="{{ route('pdn.master') }}" class="btn btn-primary">Ingresar</a>
+                </div>
+            </div>
+        </div>
+
+         {{-- sipeip --}}
+        <div class="col-md-4">
+            <div class="card shadow h-100 text-center">
+                <div class="card-body">
+                    <h5 class="card-title"> Vista Maestra del Sistema SIPeIP</h5>
+                    <p class="card-text text-muted">Creación de Plan Nacional de Desarrollo</p>
+                    <a href="{{ route('sipeip.vision-general') }}" class="btn btn-primary">Ingresar</a>
+                </div>
+            </div>
+        </div>
+
     {{-- ================= TECNICO ================= --}}
    @elseif(auth()->user()->role_id == 4)
 

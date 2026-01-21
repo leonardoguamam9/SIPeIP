@@ -47,7 +47,6 @@ class PDNController extends Controller
             'observaciones' => 'nullable|string',
         ]);
 
-        // ✅ ASIGNAR USUARIO LOGUEADO
         $validated['users_id'] = auth()->id();
 
         PDN::create($validated);
@@ -84,14 +83,20 @@ class PDNController extends Controller
             'observaciones' => 'nullable|string',
         ]);
 
-        // ✅ MANTENER USUARIO
         $validated['users_id'] = auth()->id();
 
         $pdn = PDN::findOrFail($id);
         $pdn->update($validated);
 
-        return redirect()->route('pdn.index')->with('success', 'PDN actualizado correctamente');
+         if ($request->filled('redirect')) {
+        return redirect($request->redirect)
+            ->with('success', 'PDN actualizado correctamente');
     }
+
+   
+    return redirect()->route('pdn.index')
+        ->with('success', 'PDN actualizado correctamente');
+        }
 
     public function destroy(string $id)
     {
@@ -100,4 +105,53 @@ class PDNController extends Controller
 
         return redirect()->route('pdn.index')->with('success', 'PDN eliminado correctamente');
     }
+
+
+
+
+    public function masterView()
+{
+    $pdns = PDN::all(); // SOLO listar
+    return view('pdn.master', compact('pdns'));
+}
+
+
+ public function list()
+    {
+        return response()->json(
+            PDN::select(
+                'id',
+                'codigoPDN',
+                'nombrePDN',
+                'descripcionPDN',
+                'estadoPDN'
+            )->get()
+        );
+    }
+
+
+    public function show($id)
+{
+    return response()->json(
+        PDN::select(
+            'id',
+            'codigoPDN',
+            'nombrePDN',
+            'descripcionPDN',
+            'estadoPDN',
+            'anio_inicio',
+            'anio_fin',
+            'horizonte_planificacion',
+            'fecha_aprobacion',
+            'resolucion_aprobacion',
+            'responsable_pdn',
+            'documentoPDN',
+            'url_repositorio',
+            'observaciones'
+        )->findOrFail($id)
+    );
+}
+
+
+    
 }

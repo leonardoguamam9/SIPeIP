@@ -61,6 +61,29 @@ class MetasController extends Controller
     public function show(string $id)
     {
         //
+          $meta = Metas::with(['oe','indicadores'])->find($id);
+
+        if(!$meta){
+            return response()->json(['error'=>'Meta no encontrada'], 404);
+        }
+
+        return response()->json([
+            'id' => $meta->id,
+            'codigoMeta' => $meta->codigoMeta,
+            'nombreMeta' => $meta->nombreMeta,
+            'descripcionMeta' => $meta->descripcionMeta,
+            'estadoMeta' => $meta->estadoMeta,
+            'oe' => $meta->oe ? [
+                'codigoOE' => $meta->oe->codigoOE,
+                'nombreOE' => $meta->oe->nombreOE
+            ] : null,
+            'indicadores' => $meta->indicadores->map(function($ind){
+                return [
+                    'codigoIndicador' => $ind->codigoIndicador,
+                    'nombreIndicador' => $ind->nombreIndicador
+                ];
+            })
+        ]);
     }
 
     /**
@@ -88,8 +111,15 @@ class MetasController extends Controller
 
         $meta = Metas::findOrFail($id);
         $meta->update($request->all());
-        return redirect()->route('metas.index')->with('success', 'Meta actualizada correctamente');
+        if ($request->filled('redirect')) {
+        return redirect($request->redirect)
+            ->with('success', 'Meta actualizada correctamente');
     }
+
+   
+    return redirect()->route('metas.index')
+        ->with('success', 'Meta actualizada correctamente');
+        }
 
     /**
      * Remove the specified resource from storage.
@@ -101,5 +131,13 @@ class MetasController extends Controller
         $meta->delete();
 
         return redirect()->route('metas.index')->with('success', 'Meta eliminada correctamente');
+    }
+
+     public function all()
+    {
+        
+        return response()->json(
+            Metas::select('id','nombreMeta')->get()
+        );
     }
 }

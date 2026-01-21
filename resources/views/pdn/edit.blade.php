@@ -17,6 +17,10 @@
                 <form action="{{ route('pdn.update', $pdn->id) }}" method="POST">
                     @csrf
                     @method('PUT')
+                    @if(request()->filled('redirect'))
+                    <input type="hidden" name="redirect" value="{{ request('redirect') }}">
+                    @endif
+
 
                     {{-- Código y Nombre --}}
                     <div class="row">
