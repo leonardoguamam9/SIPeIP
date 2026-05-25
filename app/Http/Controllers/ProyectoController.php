@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Proyecto;
 use App\Models\Programa;
+use App\Models\Auditoria;
+
 
 class ProyectoController extends Controller
 {
@@ -18,6 +20,7 @@ class ProyectoController extends Controller
     {
         $programas = Programa::all();
         return view('proyecto.create', compact('programas'));
+       
     }
 
     public function store(Request $request)
@@ -30,8 +33,18 @@ class ProyectoController extends Controller
             'programa_id' => 'required|integer',
         ]);
 
-        Proyecto::create($request->all());
+         Proyecto::create($request->all());
 
+         // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'CREAR',
+        'modulo' => 'PROYECTO',
+        'descripcion' => 'Se creó un proyecto',
+        'ip' => request()->ip()
+        ]);
+
+       
         return redirect()
             ->route('proyecto.index')
             ->with('success', 'Proyecto creado satisfactoriamente');
@@ -57,6 +70,14 @@ class ProyectoController extends Controller
 
         $proyecto = Proyecto::findOrFail($id);
         $proyecto->update($request->all());
+
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ACTUALIZAR',
+        'modulo' => 'PROYECTO',
+        'descripcion' => 'Se actualizó un proyecto',
+        'ip' => request()->ip()
+    ]);
         return redirect ()->route('proyecto.index')->with('success', 'Proyecto actualizado satisfactoriamente');
     }
 
@@ -64,6 +85,14 @@ class ProyectoController extends Controller
     {
         $proyecto = Proyecto::findOrFail($id);
         $proyecto->delete();
+
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ELIMINAR',
+        'modulo' => 'PROYECTO',
+        'descripcion' => 'Se eliminó un proyecto',
+        'ip' => request()->ip()
+    ]);
         return redirect ()->route('proyecto.index')->with('success', 'Proyecto eliminado satisfactoriamente');
 
         

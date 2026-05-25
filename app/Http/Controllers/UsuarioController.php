@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Auditoria;
+
 
 class UsuarioController extends Controller
 {
@@ -49,6 +51,15 @@ class UsuarioController extends Controller
             'password'=> Hash::make($request->password),
         ]);
 
+         // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'CREAR',
+        'modulo' => 'USUARIO',
+        'descripcion' => 'Se creó un usuario',
+        'ip' => request()->ip()
+        ]);
+
         return redirect()->route('usuarios.index')->with('success', 'Usuario creado correctamente');
     }
 
@@ -88,6 +99,15 @@ class UsuarioController extends Controller
 
         $usuario->update($request->only('name', 'email', 'role_id'));
 
+         // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ACTUALIZAR',
+        'modulo' => 'USUARIO',
+        'descripcion' => 'Se actualizo un usuario',
+        'ip' => request()->ip()
+        ]);
+
         return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado correctamente');
     }
 
@@ -99,6 +119,15 @@ class UsuarioController extends Controller
         //
           $usuario = User::findOrFail($id);
         $usuario->delete();
+
+         // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ELIMINO',
+        'modulo' => 'USUARIO',
+        'descripcion' => 'Se elimino un usuario',
+        'ip' => request()->ip()
+        ]);
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado correctamente');
     }

@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Models\Plan;
 use App\Models\Entidad;
 use Illuminate\Http\Request;
+use App\Models\Auditoria;
 
 class PlanController extends Controller
 {
@@ -41,6 +42,15 @@ class PlanController extends Controller
             'entidad_id' => 'required|integer',
         ]);
         Plan::create($request->all());
+
+        // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'CREAR',
+        'modulo' => 'Plan Institucional',
+        'descripcion' => 'Se creo un plan institucional',
+        'ip' => request()->ip()
+        ]);
         return redirect()->route('planes.index')->with('success',"Plan creada satisfactoriamente");
     }
 
@@ -99,6 +109,16 @@ class PlanController extends Controller
         ]);
          $planes = Plan::findOrFail($id);
          $planes->update($request->all());
+
+         // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ACTUALIZAR',
+        'modulo' => 'Plan Institucional',
+        'descripcion' => 'Se actualizo un plan institucional',
+        'ip' => request()->ip()
+        ]);
+
          return redirect()->route('planes.index')->with('success',"Plan actualizada satisfactoriamente");
     }
 
@@ -110,6 +130,15 @@ class PlanController extends Controller
         //
         $planes = Plan::findOrFail($id);
         $planes->delete();
+
+        // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ELIMINAR',
+        'modulo' => 'Plan Institucional',
+        'descripcion' => 'Se elimino un plan institucional',
+        'ip' => request()->ip()
+        ]);
         return redirect()->route('planes.index')->with('success',"Plan eliminada satisfactoriamente");  
     }
 

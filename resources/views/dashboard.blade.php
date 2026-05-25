@@ -37,7 +37,7 @@
         <div class="col-md-4">
             <div class="card shadow h-100 text-center">
                 <div class="card-body">
-                    <h5 class="card-title">Entidades</h5>
+                    <h5 class="card-title">Entidades Institucionales</h5>
                     <p class="card-text text-muted">Gestión de entidades institucionales</p>
                     <a href="{{ route('entidades.index') }}" class="btn btn-primary">Ingresar</a>
                 </div>
@@ -48,7 +48,7 @@
         <div class="col-md-4">
             <div class="card shadow h-100 text-center">
                 <div class="card-body">
-                    <h5 class="card-title">Programas</h5>
+                    <h5 class="card-title">Programas Institucionales</h5>
                     <p class="card-text text-muted">Gestión de programas institucionales</p>
                     <a href="{{ route('programa.index') }}" class="btn btn-primary">Ingresar</a>
                 </div>
@@ -70,7 +70,7 @@
         <div class="col-md-4">
             <div class="card shadow h-100 text-center">
                 <div class="card-body">
-                    <h5 class="card-title">Proyectos</h5>
+                    <h5 class="card-title">Proyectos Institucionales</h5>
                     <p class="card-text text-muted">Gestión de proyectos institucionales</p>
                     <a href="{{ route('proyecto.index') }}" class="btn btn-primary">Ingresar</a>
                 </div>
@@ -132,17 +132,7 @@
             </div>
         </div>
 
-        {{-- Alineación --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Alineación</h5>
-                    <p class="card-text text-muted">Gestión de la Alineación</p>
-                    <a href="{{ route('alineacion.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
+       
         {{-- Gestión de Usuarios --}}
         <div class="col-md-4">
             <div class="card shadow h-100 text-center">
@@ -176,17 +166,67 @@
             </div>
         </div>
 
-         {{-- sipeip --}}
+      {{-- DOCUMENTOS --}}
         <div class="col-md-4">
             <div class="card shadow h-100 text-center">
                 <div class="card-body">
-                    <h5 class="card-title"> Vista Maestra del Sistema SIPeIP</h5>
-                    <p class="card-text text-muted">Creación de Plan Nacional de Desarrollo</p>
-                    <a href="{{ route('sipeip.vision-general') }}" class="btn btn-primary">Ingresar</a>
+                    <h5 class="card-title"> DOCUMENTOS </h5>
+                    <p class="card-text text-muted">Carga de documentos </p>
+                    <a href="{{ route('documentos.index') }}" class="btn btn-primary">Ingresar</a>
                 </div>
             </div>
         </div>
 
+        {{-- Auditoria --}}
+        <div class="col-md-4">
+            <div class="card shadow h-100 text-center">
+                <div class="card-body">
+                    <h5 class="card-title"> Auditoria </h5>
+                    <p class="card-text text-muted">Información de Auditoria </p>
+                    <a href="{{ route('auditorias.index') }}" class="btn btn-primary">Ingresar</a>
+                </div>
+            </div>
+        </div>
+
+
+        {{-- SEGUIMIENTO --}}
+        <div class="col-md-4">
+            <div class="card shadow h-100 text-center">
+                <div class="card-body">
+                    <h5 class="card-title"> Seguimiento </h5>
+                    <p class="card-text text-muted">Información de Seguimiento </p>
+                    <a href="{{ route('seguimientos.index') }}" class="btn btn-primary">Ingresar</a>
+                </div>
+            </div>
+        </div>
+
+    {{-- CONFIGURACION INSTITUCIONAL --}}
+        <div class="col-md-4">
+            <div class="card shadow h-100 text-center">
+                <div class="card-body">
+                    <h5 class="card-title"> Configuración Institucional </h5>
+                    <p class="card-text text-muted">Permite hacer la configuración del sistema </p>
+                    <a href="{{ route('configuracion.index') }}" class="btn btn-primary">Ingresar</a>
+                </div>
+            </div>
+        </div>
+
+    {{-- INTEGRACIÓN CON  MINISTERIO DE FINANZAS --}}
+        <div class="col-md-4">
+            <div class="card shadow h-100 text-center">
+                <div class="card-body">
+                    <h5 class="card-title"> Integración con Ministerio de Finanzas </h5>
+                    <p class="card-text text-muted">Permite hacer la integración con el Ministerio de Finanzas </p>
+                    <a href="{{ route('finanzas.index') }}" class="btn btn-primary">Ingresar</a>
+                </div>
+            </div>
+        </div>
+
+
+
+    
+
+        
     {{-- ================= TECNICO ================= --}}
    @elseif(auth()->user()->role_id == 4)
 

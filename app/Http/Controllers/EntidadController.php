@@ -6,7 +6,7 @@ use App\Models\Entidad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules\Unique;
-
+use App\Models\Auditoria;
 
 class EntidadController extends Controller
 {
@@ -46,7 +46,14 @@ class EntidadController extends Controller
         ]);
 
         Entidad::create($request->all());
-
+        // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'CREAR',
+        'modulo' => 'Entidad',
+        'descripcion' => 'Se creó una entidad Institucional',
+        'ip' => request()->ip()
+        ]);
         return redirect()->route('entidades.index')->with('success',"Entidad creada satisfactoriamente");
     }
             
@@ -68,6 +75,14 @@ class EntidadController extends Controller
     {
         //
         $entidad= Entidad::findOrFail($id);
+         // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'CREAR',
+        'modulo' => 'ENTIDAD',
+        'descripcion' => 'Se creó una entidad',
+        'ip' => request()->ip()
+        ]);
         return view('entidades.edit',compact('entidad'));
     }
 
@@ -86,6 +101,15 @@ class EntidadController extends Controller
         ]);
         $entidad = Entidad::findOrFail($id);
         $entidad->update($request->all());
+
+         // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ACTUALIZAR',
+        'modulo' => 'ENTIDAD',
+        'descripcion' => 'Se actualizo una entidad',
+        'ip' => request()->ip()
+        ]);
         return redirect()->route('entidades.index')->with('success',"Entidad actualizada satisfactoriamente");
         
     }
@@ -98,6 +122,15 @@ class EntidadController extends Controller
         //elinar un registro
          $entidades = Entidad::findOrFail($id);
          $entidades->delete();
+
+          // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ELIMINAR',
+        'modulo' => 'ENTIDAD',
+        'descripcion' => 'Se elimino una entidad',
+        'ip' => request()->ip()
+        ]);
          return redirect()->route('entidades.index')->with('success',"Entidad eliminada satisfactoriamente");
         
 
