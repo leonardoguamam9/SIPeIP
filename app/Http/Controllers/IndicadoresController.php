@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Indicadores;
 use App\Models\Metas;
 use Illuminate\Http\Request;
+use App\Models\Auditoria;
 
 class IndicadoresController extends Controller
 {
@@ -45,6 +46,15 @@ class IndicadoresController extends Controller
         ]);
 
         Indicadores::create($request->all());
+
+        // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'CREAR',
+        'modulo' => 'INDICADORES',
+        'descripcion' => 'Se creo un indicador',
+        'ip' => request()->ip()
+        ]);
         return redirect()->route('indicadores.index')->with('success', 'Indicador creado correctamente');
     }
 
@@ -103,6 +113,16 @@ class IndicadoresController extends Controller
         ]);
           $indicador = Indicadores::findOrFail($id);
           $indicador->update($request->all());
+
+          // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ACTUALIZAR',
+        'modulo' => 'INDICADORES',
+        'descripcion' => 'Se actualizo un indicador',
+        'ip' => request()->ip()
+        ]);
+
          if ($request->filled('redirect')) {
         return redirect($request->redirect)
             ->with('success', 'Indicador actualizado correctamente');
@@ -120,6 +140,15 @@ class IndicadoresController extends Controller
         //
          $indicador = Indicadores::findOrFail($id);
          $indicador->delete();
+
+         // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ELIMINAR',
+        'modulo' => 'INDICADORES',
+        'descripcion' => 'Se elimino un indicador',
+        'ip' => request()->ip()
+        ]);
          return redirect()->route('indicadores.index')->with('success', 'Indicador eliminado correctamente');
     }
 

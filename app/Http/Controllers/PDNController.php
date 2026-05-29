@@ -6,6 +6,7 @@ use App\Models\PDN;
 use App\Models\Entidad;  
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Auditoria;
 
 class PDNController extends Controller
 {
@@ -51,6 +52,15 @@ class PDNController extends Controller
 
         PDN::create($validated);
 
+        // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'CREAR',
+        'modulo' => 'Plan Nacional de Desarrollo',
+        'descripcion' => 'Se creó un plan',
+        'ip' => request()->ip()
+        ]);
+
         return redirect()->route('pdn.index')
             ->with('success', 'PDN creado correctamente');
     }
@@ -88,6 +98,15 @@ class PDNController extends Controller
         $pdn = PDN::findOrFail($id);
         $pdn->update($validated);
 
+        // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ACTUALIZAR',
+        'modulo' => 'Plan Nacional de Desarrollo',
+        'descripcion' => 'Se actualizo un plan',
+        'ip' => request()->ip()
+        ]);
+
          if ($request->filled('redirect')) {
         return redirect($request->redirect)
             ->with('success', 'PDN actualizado correctamente');
@@ -102,6 +121,15 @@ class PDNController extends Controller
     {
         $pdn = PDN::findOrFail($id);
         $pdn->delete();
+
+        // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ELIMINAR',
+        'modulo' => 'Plan Nacional de Desarrollo',
+        'descripcion' => 'Se elimino un plan',
+        'ip' => request()->ip()
+        ]);
 
         return redirect()->route('pdn.index')->with('success', 'PDN eliminado correctamente');
     }

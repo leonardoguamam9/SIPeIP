@@ -15,6 +15,12 @@ use App\Http\Controllers\PDNController;
 use App\Http\Controllers\AlineacionController;
 use App\Http\Controllers\ValidacionController;
 use App\Http\Controllers\VisionGeneralController;
+use App\Http\Controllers\DocumentoController;
+use App\Http\Controllers\AuditoriaController;
+use App\Http\Controllers\SeguimientoController;
+use App\Http\Controllers\ConfiguracionInstitucionalController;
+use App\Http\Controllers\IntegracionFinanzasController;
+
 
 Route::get('/sipeip/vision-general', [VisionGeneralController::class, 'index'])->name('sipeip.vision-general');
 
@@ -28,6 +34,40 @@ Route::get('/pdn/master', [PDNController::class, 'masterView'])->name('pdn.maste
 Route::get('/pdns/list', [PDNController::class, 'list']);
 Route::get('/pdns/{id}', [PDNController::class, 'show']);
 Route::get('/pdns/{id}/oes', [OEController::class, 'forPDN']);
+Route::get('/documentos', [DocumentoController::class, 'index'])->name('documentos.index');
+Route::post('/documentos', [DocumentoController::class, 'store'])->name('documentos.store');
+Route::resource('configuracion', ConfiguracionInstitucionalController::class);
+Route::resource('configuracion', ConfiguracionInstitucionalController::class);
+Route::resource('finanzas', IntegracionFinanzasController::class);
+
+Route::get('/auditorias', [AuditoriaController::class, 'index'])->name('auditorias.index');
+Route::delete('/documentos/{documento}',
+    [DocumentoController::class, 'destroy'])
+    ->name('documentos.destroy');
+
+Route::get('/documentos/{documento}/edit',
+    [DocumentoController::class, 'edit'])
+    ->name('documentos.edit');
+
+Route::put('/documentos/{documento}',
+    [DocumentoController::class, 'update'])
+    ->name('documentos.update');
+
+Route::get('/seguimientos',
+    [SeguimientoController::class, 'index'])
+    ->name('seguimientos.index');
+
+Route::post('/seguimientos',
+    [SeguimientoController::class, 'store'])
+    ->name('seguimientos.store');
+
+Route::delete('/seguimientos/{seguimiento}',
+    [SeguimientoController::class, 'destroy'])
+    ->name('seguimientos.destroy');
+
+Route::get('/finanzas/pdf/export',
+    [IntegracionFinanzasController::class, 'exportPdf'])
+    ->name('finanzas.pdf');
 
 // Traer todos los ODS para el select
 Route::get('/ods/list', [ODSController::class, 'all']);

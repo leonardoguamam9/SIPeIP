@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Programa;
 use Illuminate\Http\Request;
+use App\Models\Auditoria;
 
 class ProgramaController extends Controller
 {
@@ -40,6 +41,15 @@ class ProgramaController extends Controller
             'responsablePrograma'=>'required|string',
         ]);
          Programa::create($request->all());
+
+          // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'CREO',
+        'modulo' => 'Programas Institucionales',
+        'descripcion' => 'Se creó una programa institucional',
+        'ip' => request()->ip()
+        ]);
 
          return redirect()->route('programa.index')->with('success',"Programa creada satisfactoriamente");
        
@@ -99,6 +109,16 @@ class ProgramaController extends Controller
         ]);
          $programa = Programa::findOrFail($id);
          $programa->update($request->all());
+
+         // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ACTUALIZAR',
+        'modulo' => 'Programas Institucionales',
+        'descripcion' => 'Se actualizo una programa institucional',
+        'ip' => request()->ip()
+        ]);
+
          return redirect()->route('programa.index')->with('success',"Programa actualizada satisfactoriamente");
         
     }
@@ -111,6 +131,16 @@ class ProgramaController extends Controller
         //
          $programa = Programa::findOrFail($id);
          $programa->delete();
+
+          // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ELIMINAR',
+        'modulo' => 'Programas Institucionales',
+        'descripcion' => 'Se elimino una programa institucional',
+        'ip' => request()->ip()
+        ]);
+
          return redirect()->route('programa.index')->with('success',"Programa eliminada satisfactoriamente");
         
     }

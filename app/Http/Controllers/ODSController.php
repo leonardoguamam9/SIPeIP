@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 
 
 use App\Models\ODS;
+use App\Models\Auditoria;
 
 class ODSController extends Controller
 {
@@ -40,6 +41,14 @@ class ODSController extends Controller
         ]);
 
         ODS::create($request->all());
+
+         Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'CREAR',
+        'modulo' => 'ODS',
+        'descripcion' => 'Se creó un ods',
+        'ip' => request()->ip()
+        ]);
 
         return redirect()->route('ods.index')->with('success',"ODS creada satisfactoriamente");
     }
@@ -82,6 +91,18 @@ class ODSController extends Controller
         ]);
          $ods = ODS::findOrFail($id);
          $ods->update($request->all());
+
+          ODS::create($request->all());
+
+         Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ACTUALIZAR',
+        'modulo' => 'ODS',
+        'descripcion' => 'Se actualizó un ods',
+        'ip' => request()->ip()
+        ]);
+
+         
          return redirect()->route('ods.index')->with('success',"ods actualizada satisfactoriamente");
         
 
@@ -95,6 +116,15 @@ class ODSController extends Controller
         //
          $ods = ODS::findOrFail($id);
          $ods->delete();
+
+         Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ELIMINAR',
+        'modulo' => 'ODS',
+        'descripcion' => 'Se elimino un ods',
+        'ip' => request()->ip()
+        ]);
+         
          return redirect()->route('ods.index')->with('success',"ODS eliminada satisfactoriamente");
         
     }

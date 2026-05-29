@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Metas;
 use App\Models\OE;
+use App\Models\Auditoria;
 
 class MetasController extends Controller
 {
@@ -50,6 +51,15 @@ class MetasController extends Controller
         'estadoMeta' => $request->estadoMeta,
         'oe_id' => $request->oe_id,
     ]);
+
+      // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'CREAR',
+        'modulo' => 'METAS',
+        'descripcion' => 'Se creó una meta',
+        'ip' => request()->ip()
+        ]);
 
     return redirect()->route('metas.index')->with('success', 'Meta creada correctamente');
 }
@@ -111,10 +121,23 @@ class MetasController extends Controller
 
         $meta = Metas::findOrFail($id);
         $meta->update($request->all());
+
+          // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ACTUALIZAR',
+        'modulo' => 'METAS',
+        'descripcion' => 'Se actualizó una meta',
+        'ip' => request()->ip()
+        ]);
+
+
+    
         if ($request->filled('redirect')) {
         return redirect($request->redirect)
             ->with('success', 'Meta actualizada correctamente');
     }
+
 
    
     return redirect()->route('metas.index')
@@ -129,6 +152,16 @@ class MetasController extends Controller
         //
         $meta = Metas::findOrFail($id);
         $meta->delete();
+
+        // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ELIMINAR',
+        'modulo' => 'METAS',
+        'descripcion' => 'Se eliminó una meta',
+        'ip' => request()->ip()
+        ]);
+
 
         return redirect()->route('metas.index')->with('success', 'Meta eliminada correctamente');
     }

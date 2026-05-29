@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 
 use Illuminate\Http\Request;
+use App\Models\Auditoria;
 
 class RoleController extends Controller
 {
@@ -43,6 +44,14 @@ class RoleController extends Controller
             'descripcion' => $request->descripcion,
         ]);
 
+        // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'CREAR',
+        'modulo' => 'ROL',
+        'descripcion' => 'Se creó un rol',
+        'ip' => request()->ip()
+        ]);
         return redirect()->route('roles.index')->with('success', 'Rol creado correctamente');;
     }
 
@@ -82,6 +91,15 @@ class RoleController extends Controller
             'descripcion' => $request->descripcion,
         ]);
 
+         // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ACTUALIZO',
+        'modulo' => 'ROL',
+        'descripcion' => 'Se actualizo un rol',
+        'ip' => request()->ip()
+        ]);
+
         return redirect()->route('roles.index')->with('success', 'Rol actualizado correctamente');
     }
 
@@ -101,6 +119,14 @@ class RoleController extends Controller
         }
 
         $role->delete();
+         // AUDITORIA
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'Eliminar',
+        'modulo' => 'ROL',
+        'descripcion' => 'Se elimino un rol',
+        'ip' => request()->ip()
+        ]);
 
         return redirect()
             ->route('roles.index')

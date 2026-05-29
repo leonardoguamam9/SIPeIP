@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\OE;
 use App\Models\PDN;
 use App\Models\Entidad;
+use App\Models\Auditoria;
 
 class OEController extends Controller
 {
@@ -48,6 +49,14 @@ class OEController extends Controller
 
         OE::create($request->all());
 
+         Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'CREAR',
+        'modulo' => 'Objetivos Estratégicos',
+        'descripcion' => 'Se creo un oe',
+        'ip' => request()->ip()
+        ]);
+
         return redirect()->route('oe.index')->with('success', 'Objetivo Estratéjico  creado correctamente');
     }
 
@@ -88,6 +97,14 @@ class OEController extends Controller
         $oes = OE::findOrFail($id);
         $oes->update($request->all());
 
+         Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ACTUALIZAR',
+        'modulo' => 'Objetivos Estratégicos',
+        'descripcion' => 'Se actualizo un oe',
+        'ip' => request()->ip()
+        ]);
+
         if ($request->filled('redirect')) {
         return redirect($request->redirect)
             ->with('success', 'OE actualizado correctamente');
@@ -106,6 +123,14 @@ class OEController extends Controller
         //
         $oes = OE::findOrFail($id);
         $oes->delete();
+
+        Auditoria::create([
+        'user_id' => auth()->id(),
+        'accion' => 'ELIMINAR',
+        'modulo' => 'Objetivos Estratégicos',
+        'descripcion' => 'Se elimino un oe',
+        'ip' => request()->ip()
+        ]);
 
         return redirect()->route('oe.index')->with('success', 'Objetivo Estratégico eliminado correctamente');
     }
