@@ -4,44 +4,53 @@
 
 @section('content')
 
-<div class="card shadow p-4" style="width: 100%; max-width: 450px;">
 
-    <h4 class="text-center mb-4">Crear Entidad Institucional</h4>
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+    <div class="card shadow p-4" style="width: 100%; max-width: 450px;">
 
-    <form action="{{ route('entidades.store') }}" method="POST">
-        @csrf
+        <h4 class="text-center mb-4">Crear Entidad Institucional</h4>
 
-        <div class="mb-3">
-            <label class="form-label">Nombre de la Entidad</label>
-            <input type="text" name="nombreEntidad" class="form-control" required>
-        </div>
+        <form action="{{ route('entidades.store') }}" method="POST">
+            @csrf
 
-        <div class="mb-3">
-            <label class="form-label">Tipo de Entidad</label>
-            <input type="text" name="tipoEntidad" class="form-control" required>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Nombre de la Entidad</label>
+                <input type="text" name="nombreEntidad" class="form-control" required>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label">Dirección de la Entidad</label>
-            <input type="text" name="direccionEntidad" class="form-control" required>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Tipo de Entidad</label>
+                <input type="text" name="tipoEntidad" class="form-control" required>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label">Subsector</label>
-            <input type="text" name="subSector" class="form-control" required>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Dirección de la Entidad</label>
+                <input type="text" name="direccionEntidad" class="form-control" required>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label">Responsable</label>
-            <input type="text" name="responsable" class="form-control" required>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Subsector</label>
+                <input type="text" name="subSector" class="form-control" required>
+            </div>
 
-        <div class="d-grid">
-            <button class="btn btn-success">Guardar</button>
-        </div>
-    </form>
+            <div class="mb-3">
+                <label class="form-label">Responsable</label>
+                <input type="text" name="responsable" class="form-control" required>
+            </div>
 
+            
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success">
+                    Guardar Entidad
+                </button>
+                
+                <a href="{{ route('entidades.index') }}" class="btn btn-secondary">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+
+    </div>
 </div>
 
 @endsection
-

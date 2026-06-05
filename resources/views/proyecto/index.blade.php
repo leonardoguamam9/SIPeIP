@@ -10,73 +10,90 @@
         <h3 class="mb-0">Listado de Proyectos Institucionales</h3>
 
         <a href="{{ route('proyecto.create') }}" class="btn btn-primary">
-            Nuevo Proyecto
+            <i class="bi bi-plus-circle me-1"></i> Nuevo Proyecto
         </a>
     </div>
 
-    {{-- Mensaje de éxito --}}
+    <button onclick="window.print()" class="btn btn-danger shadow-sm fw-bold no-print">
+        <i class="bi bi-file-earmark-pdf-fill me-1"></i> Exportar a PDF / Imprimir
+    </button>
+</div>
+
+<hr class="no-print">
+
+    {{-- Mensaje de éxito optimizado con botón de cierre --}}
     @if(session('success'))
-        <div class="alert alert-success">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
     <div class="card shadow">
-        <div class="card-body p-0">
+        
+        <div class="card-body p-4">
 
-            <table class="table table-bordered table-striped mb-0">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Programa</th>
-                        <th>Estado</th>
-                        <th>Responsable</th>
-                        <th class="text-center">Acciones</th>
-                    </tr>
-                </thead>
+            <div class="table-responsive">
+               
+                <table class="table table-bordered table-striped align-middle tabla-dinamica">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Programa</th>
+                            <th class="text-center">Estado</th>
+                            <th>Responsable</th>
+                            <th class="text-center" style="width: 150px;">Acciones</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                @forelse($proyectos as $proyecto)
-                    <tr>
-                        <td>{{ $proyecto->id }}</td>
-                        <td>{{ $proyecto->nombreProyecto }}</td>
-                        <td>
-                            {{ $proyecto->programa->nombrePrograma ?? 'Sin programa' }}
-                        </td>
-                        <td>{{ $proyecto->estadoProyecto }}</td>
-                        <td>{{ $proyecto->responsableProyecto }}</td>
-                        <td class="text-center">
+                    <tbody>
+                    @foreach($proyectos as $proyecto)
+                        <tr>
+                            <td>{{ $proyecto->id }}</td>
+                            <td><strong>{{ $proyecto->nombreProyecto }}</strong></td>
+                            <td>
+                                {{ $proyecto->programa->nombrePrograma ?? 'Sin programa' }}
+                            </td>
+                            <td class="text-center">
+                                @if($proyecto->estadoProyecto == 'Activo' || $proyecto->estadoProyecto == 'En Ejecución')
+                                    <span class="badge bg-success">{{ $proyecto->estadoProyecto }}</span>
+                                @elseif($proyecto->estadoProyecto == 'Inactivo' || $proyecto->estadoProyecto == 'Finalizado')
+                                    <span class="badge bg-danger">{{ $proyecto->estadoProyecto }}</span>
+                                @else
+                                    <span class="badge bg-secondary">{{ $proyecto->estadoProyecto }}</span>
+                                @endif
+                            </td>
+                            <td>{{ $proyecto->responsableProyecto }}</td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
 
-                            <a href="{{ route('proyecto.edit', $proyecto->id) }}"
-                               class="btn btn-warning btn-sm">
-                                Editar
-                            </a>
+                                    <a href="{{ route('proyecto.edit', $proyecto->id) }}"
+                                       class="btn btn-warning btn-sm">
+                                        Editar
+                                    </a>
 
-                            <form action="{{ route('proyecto.destroy', $proyecto->id) }}"
-                                  method="POST"
-                                  class="d-inline">
-                                @csrf
-                                @method('DELETE')
+                                    <form action="{{ route('proyecto.destroy', $proyecto->id) }}"
+                                          method="POST"
+                                          class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
 
-                                <button class="btn btn-danger btn-sm"
-                                        onclick="return confirm('¿Está seguro de eliminar este proyecto?')">
-                                    Eliminar
-                                </button>
-                            </form>
+                                        <button type="submit" 
+                                                class="btn btn-danger btn-sm"
+                                                onclick="return confirm('¿Está seguro de eliminar este proyecto? Esta acción desvinculará sus metas físicas e indicadores del presupuesto anual.')">
+                                            Eliminar
+                                        </button>
+                                    </form>
 
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="text-center">
-                            No existen proyectos registrados
-                        </td>
-                    </tr>
-                @endforelse
-                </tbody>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
 
-            </table>
+                </table>
+            </div>
 
         </div>
     </div>

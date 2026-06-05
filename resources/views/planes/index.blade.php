@@ -10,72 +10,91 @@
         <h3 class="mb-0">Listado de Planes Institucionales</h3>
 
         <a href="{{ route('planes.create') }}" class="btn btn-primary">
-            Nuevo Plan
+            <i class="bi bi-plus-circle me-1"></i> Nuevo Plan
         </a>
     </div>
 
+     
+    <button onclick="window.print()" class="btn btn-danger shadow-sm fw-bold no-print">
+        <i class="bi bi-file-earmark-pdf-fill me-1"></i> Exportar a PDF / Imprimir
+    </button>
+</div>
+
+<hr class="no-print">
+
+    {{-- Mensaje de éxito optimizado con botón de cierre --}}
     @if(session('success'))
-        <div class="alert alert-success">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
     <div class="card shadow">
-        <div class="card-body p-0">
+        
+        <div class="card-body p-4">
 
-            <table class="table table-bordered table-striped mb-0">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Entidad</th>
-                        <th>Estado</th>
-                        <th>Fecha de Inicio</th>
-                        <th>Fecha de Fin</th>
-                        <th class="text-center">Acciones</th>
-                    </tr>
-                </thead>
+            <div class="table-responsive">
+                
+                <table class="table table-bordered table-striped align-middle tabla-dinamica">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Entidad</th>
+                            <th class="text-center">Estado</th>
+                            <th>Fecha de Inicio</th>
+                            <th>Fecha de Fin</th>
+                            <th class="text-center" style="width: 150px;">Acciones</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                @forelse($planes as $plan)
-                    <tr>
-                        <td>{{ $plan->id }}</td>
-                        <td>{{ $plan->nombrePlan }}</td>
-                        <td>{{ $plan->entidad->nombreEntidad ??'Sin entidad' }}</td>
-                        <td>{{ $plan->estadoPlan }}</td>
-                        <td>{{ $plan->fechaInicio }}</td>
-                        <td>{{ $plan->fechaFin }}</td>
-                        <td class="text-center">
+                    <tbody>
+                    @foreach($planes as $plan)
+                        <tr>
+                            <td>{{ $plan->id }}</td>
+                            <td><strong>{{ $plan->nombrePlan }}</strong></td>
+                            <td>{{ $plan->entidad->nombreEntidad ?? 'Sin entidad' }}</td>
+                            <td class="text-center">
+                                @if($plan->estadoPlan == 'Activo' || $plan->estadoPlan == 'Vigente')
+                                    <span class="badge bg-success">{{ $plan->estadoPlan }}</span>
+                                @elseif($plan->estadoPlan == 'Inactivo' || $plan->estadoPlan == 'Caducado')
+                                    <span class="badge bg-danger">{{ $plan->estadoPlan }}</span>
+                                @else
+                                    <span class="badge bg-secondary">{{ $plan->estadoPlan }}</span>
+                                @endif
+                            </td>
+                            <td>{{ $plan->fechaInicio }}</td>
+                            <td>{{ $plan->fechaFin }}</td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
 
-                            <a href="{{ route('planes.edit', $plan->id) }}"
-                               class="btn btn-warning btn-sm">
-                                Editar
-                            </a>
+                                    <a href="{{ route('planes.edit', $plan->id) }}"
+                                       class="btn btn-warning btn-sm">
+                                        Editar
+                                    </a>
 
-                            <form action="{{ route('planes.destroy', $plan->id) }}"
-                                  method="POST"
-                                  class="d-inline">
-                                @csrf
-                                @method('DELETE')
+                                    <form action="{{ route('planes.destroy', $plan->id) }}"
+                                          method="POST"
+                                          class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
 
-                                <button class="btn btn-danger btn-sm"
-                                        onclick="return confirm('¿Está seguro de eliminar este plan?')">
-                                    Eliminar
-                                </button>
-                            </form>
+                                        <button type="submit" 
+                                                class="btn btn-danger btn-sm"
+                                                onclick="return confirm('¿Está seguro de eliminar este plan institucional? Esta acción podría afectar en cascada a los objetivos estratégicos, metas y seguimientos enlazados.')">
+                                            Eliminar
+                                        </button>
+                                    </form>
 
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="text-center">
-                            No existen planes registrados
-                        </td>
-                    </tr>
-                @endforelse
-                </tbody>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
 
-            </table>
+                </table>
+            </div> 
 
         </div>
     </div>

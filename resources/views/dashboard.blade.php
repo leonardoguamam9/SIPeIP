@@ -3,325 +3,251 @@
 @section('title', 'Dashboard')
 
 @section('content')
-
-@php
-    $roleId = auth()->user()->role_id;
-@endphp
-
-<div class="container">
-
-<div class="container">
-
-    {{-- Bienvenida --}}
-    <div class="row justify-content-center mb-4">
-        <div class="col-md-8">
-            <div class="card shadow p-4 text-center">
-                <h4 class="mb-2">
-                    Bienvenido al Sistema de Gestión de la Planificación – SIPeIP
-                </h4>
-                <p class="text-muted mb-0">
-                    Seleccione una opción para comenzar su trabajo
-                </p>
-            </div>
-        </div>
-    </div>
-
-    {{-- Accesos rápidos --}}
-
-<div class="row g-4 justify-content-center">
-
-    {{-- ================= ADMINISTRADOR ================= --}}
-    @if(auth()->user()->role_id == 1)
-
-        {{-- Entidades --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Entidades Institucionales</h5>
-                    <p class="card-text text-muted">Gestión de entidades institucionales</p>
-                    <a href="{{ route('entidades.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-        {{-- Programas --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Programas Institucionales</h5>
-                    <p class="card-text text-muted">Gestión de programas institucionales</p>
-                    <a href="{{ route('programa.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-        {{-- ODS --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">ODS</h5>
-                    <p class="card-text text-muted">Objetivos de Desarrollo Sostenible</p>
-                    <a href="{{ route('ods.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-        {{-- Proyectos --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Proyectos Institucionales</h5>
-                    <p class="card-text text-muted">Gestión de proyectos institucionales</p>
-                    <a href="{{ route('proyecto.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-        {{-- Planes --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Planes Institucionales</h5>
-                    <p class="card-text text-muted">Planificación estratégica institucional</p>
-                    <a href="{{ route('planes.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-        {{-- Indicadores --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Indicadores</h5>
-                    <p class="card-text text-muted">Seguimiento y evaluación</p>
-                    <a href="{{ route('indicadores.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-        {{-- Metas --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Metas</h5>
-                    <p class="card-text text-muted">Creación de Metas</p>
-                    <a href="{{ route('metas.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-        {{-- OE --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Objetivos Estratégicos</h5>
-                    <p class="card-text text-muted">Creación de Objetivos Estratégicos</p>
-                    <a href="{{ route('oe.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-        {{-- PDN --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Plan Nacional de Desarrollo</h5>
-                    <p class="card-text text-muted">Creación de Plan Nacional de Desarrollo</p>
-                    <a href="{{ route('pdn.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-       
-        {{-- Gestión de Usuarios --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Gestión de Usuarios</h5>
-                    <p class="card-text text-muted">Gestión de Usuarios</p>
-                    <a href="{{ route('usuarios.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-         {{-- Gestión de Roles --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Gestión de Roles</h5>
-                    <p class="card-text text-muted">Gestión de Roles</p>
-                    <a href="{{ route('roles.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-          {{-- PDN --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title"> Panel Maestro del Plan Nacional de Desarrollo</h5>
-                    <p class="card-text text-muted">Creación de Plan Nacional de Desarrollo</p>
-                    <a href="{{ route('pdn.master') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-      {{-- DOCUMENTOS --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title"> DOCUMENTOS </h5>
-                    <p class="card-text text-muted">Carga de documentos </p>
-                    <a href="{{ route('documentos.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-        {{-- Auditoria --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title"> Auditoria </h5>
-                    <p class="card-text text-muted">Información de Auditoria </p>
-                    <a href="{{ route('auditorias.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-
-        {{-- SEGUIMIENTO --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title"> Seguimiento </h5>
-                    <p class="card-text text-muted">Información de Seguimiento </p>
-                    <a href="{{ route('seguimientos.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-    {{-- CONFIGURACION INSTITUCIONAL --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title"> Configuración Institucional </h5>
-                    <p class="card-text text-muted">Permite hacer la configuración del sistema </p>
-                    <a href="{{ route('configuracion.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-    {{-- INTEGRACIÓN CON  MINISTERIO DE FINANZAS --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title"> Integración con Ministerio de Finanzas </h5>
-                    <p class="card-text text-muted">Permite hacer la integración con el Ministerio de Finanzas </p>
-                    <a href="{{ route('finanzas.index') }}" class="btn btn-primary">Ingresar</a>
-                </div>
-            </div>
-        </div>
-
-
-
+<div class="container-fluid px-2">
     
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-dark mb-1">Panel de Control de la Planificación</h2>
+            <p class="text-muted small mb-0">Resumen e indicadores estadísticos globales de SIPeIP</p>
+        </div>
+        <span class="badge bg-primary px-3 py-2 fs-6 shadow-sm">
+            Rol: {{ auth()->user()->role_id == 1 ? 'Administrador' : 'Técnico' }}
+        </span>
+    </div>
 
-        
-    {{-- ================= TECNICO ================= --}}
-   @elseif(auth()->user()->role_id == 4)
-
-         @if(auth()->user()->role_id == 4)
-         {{-- Planes --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Planes Institucionales</h5>
-                    <p class="card-text text-muted">Planificación estratégica institucional</p>
-                    <a href="{{ route('planes.index') }}" class="btn btn-primary">Ingresar</a>
+  
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="card shadow-sm border-0 border-start border-primary border-4 h-100 bg-white">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted text-uppercase small fw-bold mb-1">Proyectos</h6>
+                        <h3 class="fw-bold mb-0 text-dark">{{ $totalProyectos }}</h3>
+                    </div>
+                    <div class="bg-primary bg-opacity-10 p-3 rounded-3 text-primary">
+                        <i class="bi bi-folder fs-3"></i>
+                    </div>
                 </div>
             </div>
         </div>
 
-        
-          {{-- Programas --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Programas</h5>
-                    <p class="card-text text-muted">Gestión de programas institucionales</p>
-                    <a href="{{ route('programa.index') }}" class="btn btn-primary">Ingresar</a>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card shadow-sm border-0 border-start border-success border-4 h-100 bg-white">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted text-uppercase small fw-bold mb-1">Planes</h6>
+                        <h3 class="fw-bold mb-0 text-dark">{{ $totalPlanes }}</h3>
+                    </div>
+                    <div class="bg-success bg-opacity-10 p-3 rounded-3 text-success">
+                        <i class="bi bi-journal-text fs-3"></i>
+                    </div>
                 </div>
             </div>
         </div>
 
-        
-        {{-- Proyectos --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Proyectos</h5>
-                    <p class="card-text text-muted">Gestión de proyectos institucionales</p>
-                    <a href="{{ route('proyecto.index') }}" class="btn btn-primary">Ingresar</a>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card shadow-sm border-0 border-start border-warning border-4 h-100 bg-white">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted text-uppercase small fw-bold mb-1">Metas Asignadas</h6>
+                        <h3 class="fw-bold mb-0 text-dark">{{ $totalMetas }}</h3>
+                    </div>
+                    <div class="bg-warning bg-opacity-10 p-3 rounded-3 text-warning">
+                        <i class="bi bi-flag fs-3"></i>
+                    </div>
                 </div>
             </div>
         </div>
 
-
-          {{-- OE --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Objetivos Estratégicos</h5>
-                    <p class="card-text text-muted">Creación de Objetivos Estratégicos</p>
-                    <a href="{{ route('oe.index') }}" class="btn btn-primary">Ingresar</a>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card shadow-sm border-0 border-start border-info border-4 h-100 bg-white">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-muted text-uppercase small fw-bold mb-1">Indicadores</h6>
+                        <h3 class="fw-bold mb-0 text-dark">{{ $totalIndicadores }}</h3>
+                    </div>
+                    <div class="bg-info bg-opacity-10 p-3 rounded-3 text-info">
+                        <i class="bi bi-graph-up-arrow fs-3"></i>
+                    </div>
                 </div>
             </div>
         </div>
-        
-          {{-- Metas --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Metas</h5>
-                    <p class="card-text text-muted">Creación de Metas</p>
-                    <a href="{{ route('metas.index') }}" class="btn btn-primary">Ingresar</a>
+    </div>
+    {{-- Segundas tarjetas analíticas de control e inversión --}}
+<div class="row g-3 mb-4">
+    
+    {{-- Tarjeta 5: Techo Presupuestario Sincronizado --}}
+    <div class="col-sm-6 col-xl-3">
+        <div class="card shadow-sm border-0 border-start border-danger border-4 h-100 bg-white">
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="text-muted text-uppercase small fw-bold mb-1">Monto Fiscalizado</h6>
+                    
+                    <h3 class="fw-bold mb-0 text-dark">${{ number_format($totalPresupuesto ?? 0, 2, '.', ',') }}</h3>
+                </div>
+                <div class="bg-danger bg-opacity-10 p-3 rounded-3 text-danger">
+                    <i class="bi bi-bank fs-3"></i>
                 </div>
             </div>
         </div>
+    </div>
 
-
-       {{-- Indicadores --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Indicadores</h5>
-                    <p class="card-text text-muted">Seguimiento y evaluación</p>
-                    <a href="{{ route('indicadores.index') }}" class="btn btn-primary">Ingresar</a>
+    {{-- Tarjeta 6: Objetivos de Desarrollo Sostenible (ODS) Vinculados --}}
+    <div class="col-sm-6 col-xl-3">
+        <div class="card shadow-sm border-0 border-start border-dark border-4 h-100 bg-white">
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="text-muted text-uppercase small fw-bold mb-1">Impacto ODS</h6>
+                    <h3 class="fw-bold mb-0 text-dark">{{ $totalOds ?? 0 }} <span class="fs-6 text-muted fw-normal">ODS</span></h3>
+                </div>
+                <div class="bg-dark bg-opacity-10 p-3 rounded-3 text-dark">
+                    <i class="bi bi-globe-americas fs-3"></i>
                 </div>
             </div>
         </div>
-        
-        
-        {{-- Alineación --}}
-        <div class="col-md-4">
-            <div class="card shadow h-100 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Alineación</h5>
-                    <p class="card-text text-muted">Gestión de la Alineación</p>
-                    <a href="{{ route('alineacion.index') }}" class="btn btn-primary">Ingresar</a>
+    </div>
+
+    {{-- Tarjeta 7: Evidencias y Documentos de Respaldo --}}
+    <div class="col-sm-6 col-xl-3">
+        <div class="card shadow-sm border-0 border-start border-secondary border-4 h-100 bg-white">
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="text-muted text-uppercase small fw-bold mb-1">Documentos Cargados</h6>
+                    <h3 class="fw-bold mb-0 text-dark">{{ $totalDocumentos ?? 0 }}</h3>
+                </div>
+                <div class="bg-secondary bg-opacity-10 p-3 rounded-3 text-secondary">
+                    <i class="bi bi-file-earmark-zip fs-3"></i>
                 </div>
             </div>
         </div>
-    @endif
+    </div>
 
-    @endif
-
-</div>
-
+    {{-- Tarjeta : Alertas de Seguridad / Entidades Activas --}}
+    <div class="col-sm-6 col-xl-3">
+        <div class="card shadow-sm border-0 border-start border-indigo border-4 h-100 bg-white">
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="text-muted text-uppercase small fw-bold mb-1">Logs de Auditoría</h6>
+                    <h3 class="fw-bold mb-0 text-dark">{{ $totalAuditorias ?? 0 }}</h3>
+                </div>
+                {{-- Nota: Si tu tema no incluye la clase utilitaria de color 'indigo' nativa en CSS, puedes usar 'primary' o inyectar estilo de color inline --}}
+                <div class="p-3 rounded-3 text-white" style="background-color: rgba(99, 102, 241, 0.1); color: rgb(99, 102, 241) !important;">
+                    <i class="bi bi-shield-check-fill fs-3"></i>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
 
+    {{-- SECCIÓN DE GRÁFICOS ESTADÍSTICOS --}}
+    <div class="row g-4">
+        <div class="col-md-5">
+            <div class="card shadow-sm border-0 h-100 bg-white">
+                <div class="card-header bg-transparent border-0 pt-4 px-4">
+                    <h5 class="fw-bold text-dark mb-1">Estados de Proyectos</h5>
+                    <p class="text-muted small mb-0">Distribución porcentual del estado actual</p>
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center p-4">
+                    <div style="position: relative; width: 100%; max-width: 280px;">
+                        <canvas id="chartEstados"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <div class="card shadow-sm border-0 h-100 bg-white">
+                <div class="card-header bg-transparent border-0 pt-4 px-4">
+                    <h5 class="fw-bold text-dark mb-1">Monitoreo de Avances</h5>
+                    <p class="text-muted small mb-0">% de ejecución física en los últimos seguimientos</p>
+                </div>
+                <div class="card-body p-4">
+                    <div style="position: relative; height: 260px; width: 100%;">
+                        <canvas id="chartAvances"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 @endsection
 
+@section('scripts')
+{{-- Librería de Chart.js mediante CDN --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        // --- Diagrama circular---
+        const ctxEstados = document.getElementById('chartEstados').getContext('2d');
+        new Chart(ctxEstados, {
+            type: 'doughnut',
+            data: {
+                labels: {!! json_encode($estadosLabels) !!},
+                datasets: [{
+                    data: {!! json_encode($estadosValores) !!},
+                    backgroundColor: ['#3b82f6', '#b91010', '#f59e0b', '#ef4444', '#6366f1'],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, padding: 15 }
+                    }
+                }
+            }
+        });
+
+        // --- 2. Grafico de barras ---
+        const ctxAvances = document.getElementById('chartAvances').getContext('2d');
+        new Chart(ctxAvances, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($seguimientosLabels) !!},
+                datasets: [{
+                    label: 'Porcentaje de Avance (%)',
+                    data: {!! json_encode($seguimientosAvances) !!},
+                    backgroundColor: 'rgba(165, 74, 0, 0.85)', // color del grafico de barras.
+                    borderRadius: 6,
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: { callback: function(value) { return value + '%'; } }
+                    },
+                    x: {
+                        ticks: {
+                            callback: function(value) {
+                                let characterLimit = 15;
+                                let label = this.getLabelForValue(value);
+                                if (label.length > characterLimit) {
+                                    return label.substring(0, characterLimit) + '...';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+    });
+</script>
+@endsection

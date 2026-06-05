@@ -10,72 +10,91 @@
         <h3 class="mb-0">Listado de Programas</h3>
 
         <a href="{{ route('programa.create') }}" class="btn btn-primary">
-            Nuevo Programa
+            <i class="bi bi-plus-circle me-1"></i> Nuevo Programa
         </a>
     </div>
 
+    
+    <button onclick="window.print()" class="btn btn-danger shadow-sm fw-bold no-print">
+        <i class="bi bi-file-earmark-pdf-fill me-1"></i> Exportar a PDF / Imprimir
+    </button>
+</div>
+
+<hr class="no-print">
+
+    
     @if(session('success'))
-        <div class="alert alert-success">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
     <div class="card shadow">
-        <div class="card-body p-0">
+        
+        <div class="card-body p-4">
 
-            <table class="table table-bordered table-striped mb-0">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Tipo</th>
-                        <th>Descripción</th>
-                        <th>Estado</th>
-                        <th>Responsable</th>
-                        <th class="text-center">Acciones</th>
-                    </tr>
-                </thead>
+            <div class="table-responsive">
+                
+                <table class="table table-bordered table-striped align-middle tabla-dinamica">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Descripción</th>
+                            <th class="text-center">Estado</th>
+                            <th>Responsable</th>
+                            <th class="text-center" style="width: 150px;">Acciones</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                @forelse($programa as $programa)
-                    <tr>
-                        <td>{{ $programa->id }}</td>
-                        <td>{{ $programa->nombrePrograma }}</td>
-                        <td>{{ $programa->tipoPrograma }}</td>
-                        <td>{{ $programa->descripcionPrograma }}</td>
-                        <td>{{ $programa->estadoPrograma }}</td>
-                        <td>{{ $programa->responsablePrograma }}</td>
-                        <td class="text-center">
+                    <tbody>
+                    @foreach($programa as $prog)
+                        <tr>
+                            <td>{{ $prog->id }}</td>
+                            <td><strong>{{ $prog->nombrePrograma }}</strong></td>
+                            <td>{{ $prog->tipoPrograma }}</td>
+                            <td>{{ $prog->descripcionPrograma }}</td>
+                            <td class="text-center">
+                                @if($prog->estadoPrograma == 'Activo' || $prog->estadoPrograma == 'Ejecución')
+                                    <span class="badge bg-success">{{ $prog->estadoPrograma }}</span>
+                                @elseif($prog->estadoPrograma == 'Inactivo' || $prog->estadoPrograma == 'Suspendido')
+                                    <span class="badge bg-danger">{{ $prog->estadoPrograma }}</span>
+                                @else
+                                    <span class="badge bg-secondary">{{ $prog->estadoPrograma }}</span>
+                                @endif
+                            </td>
+                            <td>{{ $prog->responsablePrograma }}</td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
 
-                            <a href="{{ route('programa.edit', $programa->id) }}"
-                               class="btn btn-warning btn-sm">
-                                Editar
-                            </a>
+                                    <a href="{{ route('programa.edit', $prog->id) }}"
+                                       class="btn btn-warning btn-sm">
+                                        Editar
+                                    </a>
 
-                            <form action="{{ route('programa.destroy', $programa->id) }}"
-                                  method="POST"
-                                  class="d-inline">
-                                @csrf
-                                @method('DELETE')
+                                    <form action="{{ route('programa.destroy', $prog->id) }}"
+                                          method="POST"
+                                          class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
 
-                                <button class="btn btn-danger btn-sm"
-                                        onclick="return confirm('¿Está seguro de eliminar?')">
-                                    Eliminar
-                                </button>
-                            </form>
+                                        <button type="submit" 
+                                                class="btn btn-danger btn-sm"
+                                                onclick="return confirm('¿Está seguro de eliminar este programa? Esta acción removerá su vinculación de los proyectos y la asignación presupuestaria asociada.')">
+                                            Eliminar
+                                        </button>
+                                    </form>
 
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="7" class="text-center">
-                            No existen programas registrados
-                        </td>
-                    </tr>
-                @endforelse
-                </tbody>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
 
-            </table>
+                </table>
+            </div> 
 
         </div>
     </div>

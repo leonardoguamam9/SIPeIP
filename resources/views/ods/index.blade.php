@@ -10,69 +10,79 @@
         <h3 class="mb-0">Listado de Objetivos de Desarrollo Sostenible (ODS)</h3>
 
         <a href="{{ route('ods.create') }}" class="btn btn-primary">
-            Nuevo ODS
+            <i class="bi bi-plus-circle me-1"></i> Nuevo ODS
         </a>
     </div>
 
-    {{-- Mensaje de éxito --}}
+    
+    <button onclick="window.print()" class="btn btn-danger shadow-sm fw-bold no-print">
+        <i class="bi bi-file-earmark-pdf-fill me-1"></i> Exportar a PDF / Imprimir
+    </button>
+</div>
+
+<hr class="no-print">
+
+    
     @if(session('success'))
-        <div class="alert alert-success">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
     <div class="card shadow">
-        <div class="card-body p-0">
+        {{-- Ajustado de p-0 a p-4 para una correcta visualización de DataTables --}}
+        <div class="card-body p-4">
 
-            <table class="table table-bordered table-striped mb-0">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Tipo</th>
-                        <th>Descripción</th>
-                        <th class="text-center">Acciones</th>
-                    </tr>
-                </thead>
+            <div class="table-responsive">
+                
+                <table class="table table-bordered table-striped align-middle tabla-dinamica">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Descripción</th>
+                            <th class="text-center" style="width: 150px;">Acciones</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                @forelse($ods as $o)
-                    <tr>
-                        <td>{{ $o->id }}</td>
-                        <td>{{ $o->nombreODS }}</td>
-                        <td>{{ $o->tipoODS }}</td>
-                        <td>{{ $o->descripcionODS }}</td>
-                        <td class="text-center">
+                    <tbody>
+                    @foreach($ods as $o)
+                        <tr>
+                            <td>{{ $o->id }}</td>
+                            <td><strong>{{ $o->nombreODS }}</strong></td>
+                            <td>{{ $o->tipoODS }}</td>
+                            <td>{{ $o->descripcionODS }}</td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
 
-                            <a href="{{ route('ods.edit', $o->id) }}"
-                               class="btn btn-warning btn-sm">
-                                Editar
-                            </a>
+                                    <a href="{{ route('ods.edit', $o->id) }}"
+                                       class="btn btn-warning btn-sm">
+                                        Editar
+                                    </a>
 
-                            <form action="{{ route('ods.destroy', $o->id) }}"
-                                  method="POST"
-                                  class="d-inline">
-                                @csrf
-                                @method('DELETE')
+                                    <form action="{{ route('ods.destroy', $o->id) }}"
+                                          method="POST"
+                                          class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
 
-                                <button class="btn btn-danger btn-sm"
-                                        onclick="return confirm('¿Está seguro de eliminar este ODS?')">
-                                    Eliminar
-                                </button>
-                            </form>
+                                        <button type="submit" 
+                                                class="btn btn-danger btn-sm"
+                                                onclick="return confirm('¿Está seguro de eliminar este ODS? Esta acción podría desvincular planes estratégicos de la institución.')">
+                                            Eliminar
+                                        </button>
+                                    </form>
 
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="5" class="text-center">
-                            No existen ODS registrados
-                        </td>
-                    </tr>
-                @endforelse
-                </tbody>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
 
-            </table>
+                </table>
+            </div> 
 
         </div>
     </div>

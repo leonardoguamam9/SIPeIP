@@ -137,12 +137,23 @@ class PDNController extends Controller
 
 
 
-    public function masterView()
+public function masterView(Request $request)
 {
-    $pdns = PDN::all(); // SOLO listar
-    return view('pdn.master', compact('pdns'));
-}
+    // 1. Mantenemos tu listado original de PDNs
+    $pdns = PDN::all(); 
 
+    // 2. Inicializamos la variable del reporte en null
+    $reporteSeleccionado = null;
+
+    // 3. Si en la URL viene el ID del botón "Detalle", buscamos el registro con sus relaciones
+    if ($request->has('id')) {
+        $reporteSeleccionado = \App\Models\ReporteMaestro::with(['entidad', 'pdn', 'plan', 'proyecto'])
+            ->find($request->id);
+    }
+
+    // 4. Enviamos tanto tus PDNs como el reporte encontrado (si aplica) a la vista
+    return view('pdn.master', compact('pdns', 'reporteSeleccionado'));
+}
 
  public function list()
     {
@@ -181,5 +192,11 @@ class PDNController extends Controller
 }
 
 
+public function view()
+{
+    $reportes = \App\Models\ReporteMaestro::with(['entidad', 'pdn', 'plan', 'proyecto'])->get();
+
+    return view('pdn.view', compact('reportes'));
+}
     
 }
